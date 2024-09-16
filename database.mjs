@@ -9,7 +9,6 @@ var connection = mysql.createConnection({
 });
 
 connection.connect((err) => {
-    console.log(err);
     if(err) console.log("It was impossible to connect with database!!");
 })
 
