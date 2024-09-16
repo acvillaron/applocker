@@ -9,7 +9,7 @@ export function initialize(){
 	});
 	
 	console.log('\x1b[36m%s\x1b[0m', 'AUTOR');  //cyan
-	console.log('\x1b[36m%s\x1b[0m', 'JAIR RAMOS');  //cyan
+	console.log('\x1b[36m%s\x1b[0m', 'Jair Enrique Ramos Marrugo.');  //cyan
 	
 	cfonts.say("----------------",{
 		font: 'console',
