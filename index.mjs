@@ -15,7 +15,7 @@ import {
     MENU_BYPASS,
     MENU_APP_LOCKER
 } from './wizzard.mjs';
-import {buildtextWithOutSpaces} from './banner.mjs';
+import {buildtextWithOutSpaces, initialize} from './banner.mjs';
 import dotenv from 'dotenv';
 dotenv.config();
 const answers = {
@@ -61,6 +61,10 @@ const RunQuesions = async (option) => {
         OS();
     }else{
         const results = await getAppLockerResults(answers.os,answers.control, answers.bypass);
+
+        if(!results || results?.length === 0){
+            console.log('\x1b[36m%s\x1b[0m', 'NO SE HAN ENCONTRADO BYPASSES :(, INTENTE OTRA BÚSQUEDA');
+        }
         results.forEach((element,index) => {
             buildtextWithOutSpaces(`INDEX (${index})`, { color: 'yellow'});
             buildtextWithOutSpaces(`SO: ${element.sistemaoperativo}`, { color: 'white'});
@@ -72,12 +76,17 @@ const RunQuesions = async (option) => {
         });
 
         inquirer.prompt(nextOrLeaveQuestion).then((response) => {
-            if(response.next){OS()}
+            if(response.next){clearConsole(); OS()}
             else {
                 database.end();
             }
         });
     }
 }
+
+const clearConsole = () => {
+    process.stdout.write('\x1Bc');
+    initialize();
+};
 
 OS();
