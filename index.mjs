@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+import { Table } from 'console-table-printer'
 import inquirer from 'inquirer';
 import {getBypasses, getAppLockerResults, getControls} from './services/queries.mjs'
 import {database} from './database.mjs';
@@ -74,7 +74,7 @@ const RunQuesions = async (option) => {
                     if(!sos['Sistema Operativo'].includes(element.sistemaoperativo)){
                         controls.set(element.controlapplocker,{
                             ['Control App Locker']: element.controlapplocker,
-                            ['Sistema Operativo']:`${element.sistemaoperativo}, ${sos['Sistema Operativo']}`
+                            ['Sistema Operativo']:`${element.sistemaoperativo},\n${sos['Sistema Operativo']}`
                         });
                     }
 
@@ -85,7 +85,17 @@ const RunQuesions = async (option) => {
                     });
                 }
             });
-            console.table([...controls.values()]);
+
+            const p = new Table({
+                columns: [
+                  { name: "Control App Locker", alignment: "right", minLen: 50},
+                  { name: "Sistema Operativo", alignment: "left", color: "green", minLen: 50},
+                ],
+            });
+            p.addRows([...controls.values()])
+            p.printTable();
+
+
         }else{
             results.forEach((element,index) => {
                 buildtextWithOutSpaces(`INDEX (${index})`, { color: 'yellow'});
