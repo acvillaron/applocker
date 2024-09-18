@@ -31,11 +31,13 @@ export const WizardNextQuestion = [
 export const SOQuestion = [
     {
         type: 'checkbox',
-        name: 'OS',
+        name: 'os',
         message: '¿Qué sistema operativo le gustaria analizar?',
         choices: [
+            'Windows 7 Professional',
             'Windows 7 Enterprise / Ultimate',
             'Windows 8 Enterprise',
+            'Windows 10 Home',
             'Windows 10 Enterprise / Education',
             'Windows 11 Enterprise / Education'
         ]

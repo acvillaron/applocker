@@ -65,15 +65,38 @@ const RunQuesions = async (option) => {
         if(!results || results?.length === 0){
             console.log('\x1b[36m%s\x1b[0m', 'NO SE HAN ENCONTRADO BYPASSES :(, INTENTE OTRA BÚSQUEDA');
         }
-        results.forEach((element,index) => {
-            buildtextWithOutSpaces(`INDEX (${index})`, { color: 'yellow'});
-            buildtextWithOutSpaces(`SO: ${element.sistemaoperativo}`, { color: 'white'});
-            buildtextWithOutSpaces(`Control App Locker: ${element.controlapplocker}`, {color: 'white'});
-            buildtextWithOutSpaces(`Objetivo del control: ${element.objetivocontrol}`, {color: 'white'});
-            buildtextWithOutSpaces(`Tecnica de Bypass: ${element.tecnicabypass}`, {color: 'white'});
-            buildtextWithOutSpaces(`Descripción del bypass: ${element.descripcionbypass}`, {color: 'white'});
-            buildtextWithOutSpaces(` `, {color: 'white'});
-        });
+
+        if(answers.os?.os?.length && !answers.control && !answers.bypass){
+            const controls = new Map();
+            results.map((element)=>{
+                if(controls.has(element.controlapplocker)){
+                    const sos = controls.get(element.controlapplocker);
+                    if(!sos['Sistema Operativo'].includes(element.sistemaoperativo)){
+                        controls.set(element.controlapplocker,{
+                            ['Control App Locker']: element.controlapplocker,
+                            ['Sistema Operativo']:`${element.sistemaoperativo}, ${sos['Sistema Operativo']}`
+                        });
+                    }
+
+                }else{
+                    controls.set(element.controlapplocker,{
+                        ['Control App Locker']: element.controlapplocker,
+                        ['Sistema Operativo']:`${element.sistemaoperativo}`
+                    });
+                }
+            });
+            console.table([...controls.values()]);
+        }else{
+            results.forEach((element,index) => {
+                buildtextWithOutSpaces(`INDEX (${index})`, { color: 'yellow'});
+                buildtextWithOutSpaces(`SO: ${removeAccents(element.sistemaoperativo)}`, { color: 'white'});
+                buildtextWithOutSpaces(`Control App Locker: ${removeAccents(element.controlapplocker)}`, {color: 'white'});
+                buildtextWithOutSpaces(`Objetivo del control: ${removeAccents(element.objetivocontrol)}`, {color: 'white'});
+                buildtextWithOutSpaces(`Tecnica de Bypass: ${removeAccents(element.tecnicabypass)}`, {color: 'white'});
+                buildtextWithOutSpaces(`Descripción del bypass: ${removeAccents(element.descripcionbypass)}`, {color: 'white'});
+                buildtextWithOutSpaces(` `, {color: 'white'});
+            });
+        }
 
         inquirer.prompt(nextOrLeaveQuestion).then((response) => {
             if(response.next){clearConsole(); OS()}
@@ -84,7 +107,14 @@ const RunQuesions = async (option) => {
     }
 }
 
+const removeAccents = (texto) => {
+    return texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+}
+
 const clearConsole = () => {
+    answers['os']=null;
+    answers['bypass']=null;
+    answers['control']=null;
     process.stdout.write('\x1Bc');
     initialize();
 };

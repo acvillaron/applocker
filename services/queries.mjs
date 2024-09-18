@@ -20,8 +20,8 @@ export const getControls = async () => {
 export const getAppLockerResults = async (system, control, bypasses) => {
     
     let sql = `SELECT sistemaoperativo, controlapplocker, objetivocontrol, tecnicabypass, descripcionbypass FROM applockertool.applockerbypass WHERE`;
-    if(system?.OS.length){
-        sql=buildSqlOSAppLocker(system.OS, sql);
+    if(system?.os.length){
+        sql=buildSqlOSAppLocker(system.os, sql);
     }
     if(control?.control){
         sql=buildSqlControl(control.control, sql);
