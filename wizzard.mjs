@@ -3,7 +3,7 @@ import { type } from "os";
 export const MENU_OS = '1) Sistema Operativo.';
 export const MENU_APP_LOCKER = '2) Control App Locker.';
 export const MENU_BYPASS = '3) Técnica Bypass.';
-export const MENU_SALIR = '4) Salir de la Herramienta';
+export const MENU_SALIR = '4) Salir de la Herramienta.';
 
 export const Wizard = [
     {
