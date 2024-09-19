@@ -2,14 +2,14 @@ import { type } from "os";
 
 export const MENU_OS = '1) Sistema Operativo.';
 export const MENU_APP_LOCKER = '2) Control App Locker.';
-export const MENU_BYPASS = '3) Tecnica Bypass a indagar (avanzado).';
-export const MENU_SALIR = '4) Salir de la herramienta';
+export const MENU_BYPASS = '3) Técnica Bypass.';
+export const MENU_SALIR = '4) Salir de la Herramienta';
 
 export const Wizard = [
     {
         type: 'list',
         name: 'option',
-        message: 'Selecciona una primera pregunta o filtro',
+        message: 'Seleccione/Escoja una opción',
         choices: [
             MENU_OS,
             MENU_APP_LOCKER,
@@ -24,7 +24,7 @@ export const WizardNextQuestion = [
         type: 'confirm',
         name: 'nextFilter',
         default: false,
-        message: '¿Deseas añadir una nueva pregunta o filtro, en caso en caso afirmativo, digite YES',
+        message: '¿Deseas añadir una nueva pregunta o filtro, en caso afirmativo, digite YES',
     }
 ];
 
@@ -67,7 +67,7 @@ export const nextQuestion = [
         type: 'confirm',
         name: 'continue',
         default: false,
-        message: '¿Deseas añadir una nueva pregunta o filtro, en caso en caso afirmativo, digite YES'
+        message: '¿Deseas añadir una nueva pregunta o filtro, en caso afirmativo, digite YES'
     }
 ];
 

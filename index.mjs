@@ -61,7 +61,6 @@ const RunQuesions = async (option) => {
         OS();
     }else{
         const results = await getAppLockerResults(answers.os,answers.control, answers.bypass);
-
         if(!results || results?.length === 0){
             console.log('\x1b[36m%s\x1b[0m', 'NO SE HAN ENCONTRADO BYPASSES :(, INTENTE OTRA BÚSQUEDA');
         }
@@ -89,23 +88,54 @@ const RunQuesions = async (option) => {
             const p = new Table({
                 columns: [
                   { name: "Control App Locker", alignment: "right", minLen: 50},
-                  { name: "Sistema Operativo", alignment: "left", color: "green", minLen: 50},
+                  { name: "Sistema Operativo", alignment: "left", minLen: 50},
                 ],
             });
             p.addRows([...controls.values()])
             p.printTable();
 
 
-        }else{
-            results.forEach((element,index) => {
-                buildtextWithOutSpaces(`INDEX (${index})`, { color: 'yellow'});
-                buildtextWithOutSpaces(`SO: ${removeAccents(element.sistemaoperativo)}`, { color: 'white'});
-                buildtextWithOutSpaces(`Control App Locker: ${removeAccents(element.controlapplocker)}`, {color: 'white'});
-                buildtextWithOutSpaces(`Objetivo del control: ${removeAccents(element.objetivocontrol)}`, {color: 'white'});
-                buildtextWithOutSpaces(`Tecnica de Bypass: ${removeAccents(element.tecnicabypass)}`, {color: 'white'});
-                buildtextWithOutSpaces(`Descripción del bypass: ${removeAccents(element.descripcionbypass)}`, {color: 'white'});
-                buildtextWithOutSpaces(` `, {color: 'white'});
+        }else if(answers.os?.os?.length && answers.control && !answers.bypass || !answers.os && answers.control && !answers.bypass){
+            const p = new Table({
+                columns: [
+                  { name: "Sistema Operativo", alignment: "right", maxLen: 25},
+                  { name: "Objetivo del control", alignment: "left", maxLen: 30},
+                  { name: "Tecnica de Bypass", alignment: "left", maxLen: 40},
+                  { name: "Descripción del bypass", alignment: "left", maxLen: 40},
+                ],
             });
+
+            results.forEach((element,i) => {
+                const color = i%2 === 0 ? 'cyan' : 'green';
+                p.addRow({
+                    ['Sistema Operativo']:removeAccents(element.sistemaoperativo),
+                    ['Objetivo del control']:removeAccents(element.objetivocontrol),
+                    ['Tecnica de Bypass']:removeAccents(element.tecnicabypass),
+                    ['Descripción del bypass']:removeAccents(element.descripcionbypass),
+                },{color})
+            });
+            p.printTable();
+        }
+        else{
+            const p = new Table({
+                columns: [
+                  { name: "Sistema Operativo", alignment: "right", maxLen: 25},
+                  { name: "Control App Locker:", alignment: "right", maxLen: 30},
+                  { name: "Objetivo del control", alignment: "left", maxLen: 40},
+                  { name: "Descripción del bypass", alignment: "left", maxLen: 40},
+                ],
+            });
+
+            results.forEach((element,i) => {
+                const color = i%2 === 0 ? 'cyan' : 'green';
+                p.addRow({
+                    ['Sistema Operativo']:removeAccents(element.sistemaoperativo),
+                    ['Control App Locker:']:removeAccents(element.controlapplocker),
+                    ['Objetivo del control']:removeAccents(element.objetivocontrol),
+                    ['Descripción del bypass']:removeAccents(element.descripcionbypass),
+                },{color})
+            });
+            p.printTable();
         }
 
         inquirer.prompt(nextOrLeaveQuestion).then((response) => {
