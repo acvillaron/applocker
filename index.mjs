@@ -88,7 +88,7 @@ const RunQuesions = async (option) => {
             const p = new Table({
                 columns: [
                   { name: "Control App Locker", alignment: "right", minLen: 50},
-                  { name: "Sistema Operativo", alignment: "left", minLen: 50},
+                  { name: "Sistema Operativo", alignment: "left", color: 'green', minLen: 50},
                 ],
             });
             p.addRows([...controls.values()])
