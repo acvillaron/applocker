@@ -120,7 +120,7 @@ const RunQuesions = async (option) => {
             const p = new Table({
                 columns: [
                   { name: "Sistema Operativo", alignment: "right", maxLen: 25},
-                  { name: "Control App Locker:", alignment: "right", maxLen: 30},
+                  { name: "Control App Locker", alignment: "right", maxLen: 30},
                   { name: "Objetivo del control", alignment: "left", maxLen: 40},
                   { name: "Descripción del bypass", alignment: "left", maxLen: 40},
                 ],
@@ -130,7 +130,7 @@ const RunQuesions = async (option) => {
                 const color = i%2 === 0 ? 'cyan' : 'green';
                 p.addRow({
                     ['Sistema Operativo']:removeAccents(element.sistemaoperativo),
-                    ['Control App Locker:']:removeAccents(element.controlapplocker),
+                    ['Control App Locker']:removeAccents(element.controlapplocker),
                     ['Objetivo del control']:removeAccents(element.objetivocontrol),
                     ['Descripción del bypass']:removeAccents(element.descripcionbypass),
                 },{color})
