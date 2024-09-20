@@ -1,7 +1,7 @@
 import cfonts from 'cfonts'
 
 export function initialize(){
-	cfonts.say("Guia de App Locker",{
+	cfonts.say("Bypass applocker",{
 		font: 'chrome',
 		spaceless:true,
 		colors: ['white'], 
